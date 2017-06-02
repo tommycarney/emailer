@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :campaigns
   root to: 'static_pages#home'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
