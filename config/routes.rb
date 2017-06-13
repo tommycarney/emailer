@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts
   resources :campaigns
   root to: 'static_pages#home'
 
