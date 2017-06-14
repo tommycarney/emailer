@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:google_oauth2]
 
+  has_many :campaigns
+
 
   def self.from_omni_auth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

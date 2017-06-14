@@ -1,6 +1,7 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
+
   # GET /campaigns
   # GET /campaigns.json
   def index
@@ -24,7 +25,7 @@ class CampaignsController < ApplicationController
   # POST /campaigns
   # POST /campaigns.json
   def create
-    @campaign = Campaign.new(campaign_params)
+    @campaign = current_user.campaigns.new(campaign_params)
 
     respond_to do |format|
       if @campaign.save
@@ -69,6 +70,6 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:user_id, :name)
+      params.require(:campaign).permit(:name)
     end
 end

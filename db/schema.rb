@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602104903) do
+ActiveRecord::Schema.define(version: 20170613052515) do
 
   create_table "campaigns", force: :cascade do |t|
     t.integer  "user_id"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20170602104903) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_campaigns_on_user_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "campaign_id"
+    t.string   "email"
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["campaign_id"], name: "index_contacts_on_campaign_id"
   end
 
   create_table "tokens", force: :cascade do |t|

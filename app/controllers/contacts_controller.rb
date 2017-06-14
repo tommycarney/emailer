@@ -24,7 +24,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    @contact = Campaign.find_by_id(params[:campaign_id]).contacts.new(contact_params)
 
     respond_to do |format|
       if @contact.save
@@ -59,6 +59,12 @@ class ContactsController < ApplicationController
       format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+
+  def import
+    Contact.import(params[:file], params[:campaign_id])
+    redirect_to root_url, notice: "Contacts imported."
   end
 
   private

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :contacts
+  resources :contacts do
+    collection { post :import }
+  end
   resources :campaigns
   root to: 'static_pages#home'
 
