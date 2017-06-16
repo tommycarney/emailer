@@ -1,6 +1,7 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
+
   # GET /contacts
   # GET /contacts.json
   def index
@@ -61,7 +62,6 @@ class ContactsController < ApplicationController
     end
   end
 
-
   def import
     Contact.import(params[:file], params[:campaign_id])
     redirect_to root_url, notice: "Contacts imported."
@@ -75,6 +75,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:campaign_id, :email, :name)
+      params.permit(:campaign_id, :email, :name)
     end
 end
