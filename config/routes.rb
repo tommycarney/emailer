@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   resources :contacts do
     collection { post :import }
   end
-  resources :campaigns
+  resources :campaigns do
+    member do
+      get 'preview'
+      get 'send'
+    end
+  end
   root to: 'static_pages#home'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }

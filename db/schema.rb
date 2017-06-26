@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615170819) do
+ActiveRecord::Schema.define(version: 20170619141825) do
 
   create_table "campaigns", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "email"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
   end
 
@@ -27,6 +28,12 @@ ActiveRecord::Schema.define(version: 20170615170819) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["campaign_id"], name: "index_contacts_on_campaign_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tokens", force: :cascade do |t|

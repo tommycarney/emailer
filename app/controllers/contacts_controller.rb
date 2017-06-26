@@ -64,7 +64,7 @@ class ContactsController < ApplicationController
 
   def import
     Contact.import(params[:file], params[:campaign_id])
-    redirect_to root_url, notice: "Contacts imported."
+    redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
   end
 
   private

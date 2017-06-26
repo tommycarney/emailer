@@ -1,0 +1,4 @@
+<br />
+<% @campaign.contacts.each do |contact| %>
+  <p><%= render_email(contact, @campaign.email) %></p>
+<% end %>

@@ -36,6 +36,8 @@ gem 'therubyracer'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'google-api-client','~> 0.7.1', require: 'google/api_client'
+gem 'gmail-api-ruby', '0.0.10'
 
 
 # Use Capistrano for deployment
