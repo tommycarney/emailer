@@ -70,21 +70,11 @@ class CampaignsController < ApplicationController
       @campaign = Campaign.find_by_id(params[:id])
       token = Token.find_by_email(@campaign.user.email)
       token.refresh! if token.expired?
-      Gmail.client_id = Rails.application.secrets.client_id
-      Gmail.client_secret = Rails.application.secrets.client_secret
-      Gmail.refresh_token = token.refresh_token
       contacts = @campaign.contacts
       contacts.each do |contact|
-        m = Gmail::Message.new(
-            from: "\"Thomas Carney\" <tommycarney@gmail.com>",
-            to: "#{contact.email}",
-            subject: @campaign.name,
-            text: render_email(contact, @campaign.email),
-            html: render_email(contact, @campaign.email)
-          )
-        m.deliver
+        EmailJob.perform_later(@campaign.name, contact.email, render_email(contact, @campaign.email), token.refresh_token)
       end
-      redirect_to(root_url, notice: "We just sent #{contacts.count} emails through your Gmail account. Boom!")
+      redirect_to(root_url, notice: "We just scheduled #{contacts.count} emails to be sent your Gmail account.")
   end
 
   private
@@ -102,7 +92,4 @@ class CampaignsController < ApplicationController
       email.gsub(/{{[a-zA-Z0-9]+}}/) {|var| contact.send(var.scan(/[^({{|}})]/).join) }
     end
 
-    def send_email(contact, campaign)
-
-    end
 end
