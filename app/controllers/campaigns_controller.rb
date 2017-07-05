@@ -66,12 +66,15 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find_by_id(params[:id])
   end
 
-  def send(argument)
+  def send_templated_email
       @campaign = Campaign.find_by_id(params[:id])
       token = Token.find_by_email(@campaign.user.email)
-      Gmail.new(client_id: Rails.application.secrets.client_id, client_secret: Rails.application.secrets.client_secret, refresh_token: token.access_token)
-
-      @campaign.contacts.each do |contact|
+      token.refresh! if token.expired?
+      Gmail.client_id = Rails.application.secrets.client_id
+      Gmail.client_secret = Rails.application.secrets.client_secret
+      Gmail.refresh_token = token.refresh_token
+      contacts = @campaign.contacts
+      contacts.each do |contact|
         m = Gmail::Message.new(
             from: "\"Thomas Carney\" <tommycarney@gmail.com>",
             to: "#{contact.email}",
@@ -79,9 +82,9 @@ class CampaignsController < ApplicationController
             text: render_email(contact, @campaign.email),
             html: render_email(contact, @campaign.email)
           )
-        m.create_draft
+        m.deliver
       end
-      redirect_to root_url, notice: "Emails sent!"
+      redirect_to(root_url, notice: "We just sent #{contacts.count} emails through your Gmail account. Boom!")
   end
 
   private

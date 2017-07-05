@@ -33,8 +33,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'therubyracer'
+gem "retriable", "~> 1.4"
 gem 'devise'
-gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client','~> 0.7.1', require: 'google/api_client'
 gem 'gmail-api-ruby', '0.0.10'
