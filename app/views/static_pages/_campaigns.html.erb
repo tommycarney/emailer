@@ -1,0 +1,7 @@
+<ul>
+  <h3> List of Campaigns </h3>
+<% current_user.campaigns.each do |campaign| %>
+<li><strong>Campaign:</strong> <%= link_to campaign.name, campaign_path(campaign.id) %>. <strong>Contacts</strong> <%= campaign.contacts.count %></li>
+<% end %>
+
+</ul>
