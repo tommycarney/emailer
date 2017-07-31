@@ -5,6 +5,7 @@
 </p>
 
 <h2> Import Contacts<h2>
+<div id="example1"></div>
   <%= form_tag import_contacts_path(@campaign.id), multipart: true do %>
     <%= file_field_tag :file %>
     <%= hidden_field_tag 'campaign_id', @campaign.id %>
