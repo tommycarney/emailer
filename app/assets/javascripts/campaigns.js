@@ -29,9 +29,9 @@ function handleFile(e) {
         workbook = XLSX.read(btoa(arr), {type: 'base64'});
       }
       work = workbook;
-      hot1 = new Handsontable(container1, {
+      hot1 = new it , {
          data: to_data(workbook),
-         header: true
+         header: true,
        });
     };
     reader.readAsBinaryString(f);
