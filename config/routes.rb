@@ -5,8 +5,8 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   resources :campaigns
-  get 'campaigns/:id/preview',  to: 'campaigns#preview'
-  get 'campaigns/:id/send',     to: 'campaigns#send_templated_email'
+  get 'campaigns/:id/preview',  to: 'campaigns#preview', as: :preview_campaign
+  get 'campaigns/:id/send',     to: 'campaigns#send_templated_email', as: :send_campaign
   root to: 'static_pages#home'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }

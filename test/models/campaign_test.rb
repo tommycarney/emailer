@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class CampaignTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "campaign attributes must not be empty" do
+    campaign = Campaign.new
+    assert campaign.invalid?
+  end
 end

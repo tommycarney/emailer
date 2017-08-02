@@ -2,3 +2,5 @@
 <% @campaign.contacts.each do |contact| %>
   <p><%= render_email(contact, @campaign.email) %></p>
 <% end %>
+
+<%= link_to "Send this Campaign", send_campaign_path(@campaign) %>
