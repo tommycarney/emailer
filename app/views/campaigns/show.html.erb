@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+
 <p>
   <strong>Name:</strong>
   <%= @campaign.name %>
@@ -6,7 +7,7 @@
 
 <h2> Import Contacts<h2>
 <div id="example1"></div>
-  <%= form_tag import_contacts_path(@campaign.id), multipart: true do %>
+  <%= form_tag import_campaign_path(@campaign.id), multipart: true do %>
     <%= file_field_tag :file %>
     <%= hidden_field_tag 'campaign_id', @campaign.id %>
     <%= submit_tag "Import Contacts" %>

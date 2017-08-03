@@ -1,10 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :contacts do
-    collection { post :import }
+  resources :contacts
+  resources :campaigns do
+    post :import, on: :member
   end
-  resources :campaigns
+
   get 'campaigns/:id/preview',  to: 'campaigns#preview', as: :preview_campaign
   get 'campaigns/:id/send',     to: 'campaigns#send_templated_email', as: :send_campaign
   root to: 'static_pages#home'

@@ -1,5 +1,6 @@
 class Contact < ApplicationRecord
   belongs_to :campaign
+  validates :email, uniqueness: { scope: :campaign }
 
   def self.import(file, campaign_id)
     CSV.foreach(file.path, headers: true) do |row|

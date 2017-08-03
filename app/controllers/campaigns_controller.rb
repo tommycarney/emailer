@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_campaign, only: [:show, :edit, :update, :destroy, :send_templated_email, :import]
 
 
   # GET /campaigns
@@ -67,7 +67,7 @@ class CampaignsController < ApplicationController
   end
 
   def send_templated_email
-      @campaign = Campaign.find_by_id(params[:id])
+    # @campaign.send_templated_email...
       token = Token.find_by_email(@campaign.user.email)
       token.refresh! if token.expired?
       contacts = @campaign.contacts
@@ -75,6 +75,24 @@ class CampaignsController < ApplicationController
         EmailJob.perform_later(@campaign.name, contact.email, render_email(contact, @campaign.email), token.refresh_token)
       end
       redirect_to(root_url, notice: "We just scheduled #{contacts.count} emails to be sent your Gmail account.")
+  end
+
+  #def import
+  #  if @campaign.import(params[:file])
+#      redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
+#    else
+#      redirect_to edit_campaign_path(params[:campaign_id]), notice: "Import failed."
+#    end
+#  end
+
+  def import
+    @contacts_importer = ContactsImporter.new(@campaign, params[:file].path)
+    if @contacts_importer.valid?
+      @contacts_importer.import
+      redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
+    else
+      render :edit
+    end
   end
 
   private

@@ -31,7 +31,6 @@ function handleFile(e) {
       work = workbook;
       hot1 = new it , {
          data: to_data(workbook),
-         header: true,
        });
     };
     reader.readAsBinaryString(f);
