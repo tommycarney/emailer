@@ -77,20 +77,13 @@ class CampaignsController < ApplicationController
       redirect_to(root_url, notice: "We just scheduled #{contacts.count} emails to be sent your Gmail account.")
   end
 
-  #def import
-  #  if @campaign.import(params[:file])
-#      redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
-#    else
-#      redirect_to edit_campaign_path(params[:campaign_id]), notice: "Import failed."
-#    end
-#  end
-
   def import
     @contacts_importer = ContactsImporter.new(@campaign, params[:file].path)
-    if @contacts_importer.valid?
+    if @contacts_importer.valid? && @contacts_importer.data_valid?
       @contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
     else
+      @contacts_importer.errors.each { |error| @campaign.errors.add(:csv, error)}
       render :edit
     end
   end

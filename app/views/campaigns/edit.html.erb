@@ -1,6 +1,10 @@
 <h1>Editing Campaign</h1>
 
-<%= puts @campaign_importer %>
+<% @campaign.errors.each do |error| %>
+  <ul>
+    <li><%= error%></li>
+  </ul>
+<% end %>
 
 <%= render 'form', campaign: @campaign %>
 

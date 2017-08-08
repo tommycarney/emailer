@@ -1,6 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
+/* Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+# You can use CoffeeScript in this file: http://coffeescript.org/ */
 
 function to_data(wb) {
   var result = [];
@@ -28,9 +28,9 @@ function handleFile(e) {
         var arr = fixdata(data);
         workbook = XLSX.read(btoa(arr), {type: 'base64'});
       }
-      work = workbook;
-      hot1 = new it , {
+      handsontable = new Handsontable(table, {
          data: to_data(workbook),
+         header: true
        });
     };
     reader.readAsBinaryString(f);
@@ -44,12 +44,18 @@ function fixdata(data) {
   return o;
 }
 
-var rABS, container1, hot1, work;
+function submitTable() {
+  var worksheet = XLSX.utils.table_to_book($('.htCore')[0])
+  var csv = XLSX.utils.sheet_to_csv(worksheet["Sheets"]['Sheet1'])
+}
+
+var rABS, table, handsontable;
 
 
 $(document).ready(function(){
   document.getElementById("file").addEventListener('change', handleFile, false);
   rABS = true;
-  container1 = document.getElementById('example1');
-  hot1;
+  table = document.getElementById('example1');
+  handsontable;
+  document.getElementById("input").addEventListener('change', submitTable, false);
 });
