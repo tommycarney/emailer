@@ -43,7 +43,7 @@ gem 'js-xlsx-rails'
 gem 'jquery-ui-rails'
 gem 'rails_handsontable'
 
-
+gem 'awesome_print'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

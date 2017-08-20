@@ -1,4 +1,4 @@
 class Contact < ApplicationRecord
   belongs_to :campaign
-  validates :email, uniqueness: { scope: :campaign }
+  has_many :contact_attributes, dependent: :destroy
 end

@@ -49,6 +49,12 @@ function submitTable() {
   var csv = XLSX.utils.sheet_to_csv(worksheet["Sheets"]['Sheet1'])
 }
 
+function setCSVdata(){
+  var worksheet = XLSX.utils.table_to_book($('.htCore')[0])
+  var csv = XLSX.utils.sheet_to_csv(worksheet["Sheets"]['Sheet1'])
+  $('#csvstring').val(csv)
+}
+
 var rABS, table, handsontable;
 
 
@@ -57,5 +63,7 @@ $(document).ready(function(){
   rABS = true;
   table = document.getElementById('example1');
   handsontable;
-  document.getElementById("input").addEventListener('change', submitTable, false);
+
+
+  $('form').submit(setCSVdata);
 });

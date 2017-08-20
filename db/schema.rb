@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619141825) do
+ActiveRecord::Schema.define(version: 20170815173434) do
 
   create_table "campaigns", force: :cascade do |t|
     t.integer  "user_id"
@@ -18,7 +18,17 @@ ActiveRecord::Schema.define(version: 20170619141825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "email"
+    t.text     "csvstring"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
+  end
+
+  create_table "contact_attributes", force: :cascade do |t|
+    t.string   "attribute_name"
+    t.string   "attribute_value"
+    t.integer  "contact_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["contact_id"], name: "index_contact_attributes_on_contact_id"
   end
 
   create_table "contacts", force: :cascade do |t|

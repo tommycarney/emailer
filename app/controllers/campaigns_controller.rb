@@ -69,7 +69,7 @@ class CampaignsController < ApplicationController
   def send_templated_email
     # @campaign.send_templated_email...
       token = Token.find_by_email(@campaign.user.email)
-      token.refresh! if token.expired?
+      token.update_token
       contacts = @campaign.contacts
       contacts.each do |contact|
         EmailJob.perform_later(@campaign.name, contact.email, render_email(contact, @campaign.email), token.refresh_token)
@@ -78,9 +78,11 @@ class CampaignsController < ApplicationController
   end
 
   def import
-    @contacts_importer = ContactsImporter.new(@campaign, params[:file].path)
-    if @contacts_importer.valid? && @contacts_importer.data_valid?
-      @contacts_importer.import
+    @campaign.update(csvstring: params[:csvstring])
+    contacts_importer = ContactsImporter.new(@campaign)
+
+    if contacts_importer.valid? #&& @contacts_importer.data_valid?
+      contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
     else
       @contacts_importer.errors.each { |error| @campaign.errors.add(:csv, error)}
@@ -96,7 +98,7 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:name, :email)
+      params.require(:campaign).permit(:name, :email, :csvstring)
     end
 
     def render_email(contact, email)
