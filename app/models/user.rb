@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:google_oauth2]
   has_many :campaigns, dependent: :destroy
-  has_one :token, primary_key: "email", foreign_key: "email"
+  has_one :token, primary_key: "email", foreign_key: "email", dependent: :destroy
 
 
   def self.from_omni_auth(auth)

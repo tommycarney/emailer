@@ -16,7 +16,7 @@ class ContactsImporter
     CSV.parse(csvstring, headers: true).each do |row|
       contact = campaign.contacts.create(row.select {|attribute| valid_email?(attribute[1]) }.to_h)
       row.reject {|attribute| valid_email?(attribute[1]) }.each do |attribute|
-        contact.contact_attributes.create(attribute_name:attribute[0], attribute_value: attribute[1])
+        contact.add_attribute(attribute)
       end
     end
   end
