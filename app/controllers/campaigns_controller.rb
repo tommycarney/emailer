@@ -72,7 +72,13 @@ class CampaignsController < ApplicationController
       token.update_token
       contacts = @campaign.contacts
       contacts.each do |contact|
-        EmailJob.perform_later(@campaign.name, contact.email, render_email(contact, @campaign.email), token.refresh_token)
+        EmailJob.perform_later(
+                        sender:   @campaign.user.email,
+                        subject:  @campaign.name,
+                        email:    contact.email,
+                        body:     render_email(contact, @campaign.email),
+                        token:    token.refresh_token
+                        )
       end
       redirect_to(root_url, notice: "We just scheduled #{contacts.count} emails to be sent your Gmail account.")
   end
