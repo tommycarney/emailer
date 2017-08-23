@@ -14,7 +14,7 @@ class Token < ActiveRecord::Base
     end
   end
 
-  def update_token
+  def update_token!
     refresh! if expired?
   end
 

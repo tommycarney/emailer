@@ -1,5 +1,6 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy, :send_templated_email, :import]
+  helper_method :render_email
 
 
   # GET /campaigns
@@ -69,7 +70,7 @@ class CampaignsController < ApplicationController
   def send_templated_email
     # @campaign.send_templated_email...
       token = Token.find_by_email(@campaign.user.email)
-      token.update_token
+      token.update_token!
       contacts = @campaign.contacts
       contacts.each do |contact|
         EmailJob.perform_later(
@@ -80,15 +81,15 @@ class CampaignsController < ApplicationController
                         token:    token.refresh_token
                         )
       end
-      redirect_to(root_url, notice: "We just scheduled #{contacts.count} emails to be sent your Gmail account.")
+      redirect_to(root_url, notice: "We just sent #{contacts.count} emails via your Gmail account.")
   end
 
   def import
     @campaign.update(csvstring: params[:csvstring])
-    contacts_importer = ContactsImporter.new(@campaign)
+    @contacts_importer = ContactsImporter.new(@campaign)
 
-    if contacts_importer.valid? #&& @contacts_importer.data_valid?
-      contacts_importer.import
+    if @contacts_importer.valid? #&& @contacts_importer.data_valid?
+      @contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
     else
       @contacts_importer.errors.each { |error| @campaign.errors.add(:csv, error)}
@@ -107,8 +108,8 @@ class CampaignsController < ApplicationController
       params.require(:campaign).permit(:name, :email, :csvstring)
     end
 
-    def render_email(contact, email)
-      email.gsub(/{{[a-zA-Z0-9]+}}/) {|var| contact.send(var.scan(/[^({{|}})]/).join) }
+    def render_email(contact, template)
+      template.gsub(/{{[a-zA-Z0-9]+}}/) {|var| contact.contact_attributes.find_by(attribute_name: var.scan(/[^({{|}})]/).join).attribute_value }
     end
 
 end
