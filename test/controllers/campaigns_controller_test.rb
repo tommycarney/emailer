@@ -7,6 +7,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     @campaign = campaigns(:one)
     @user.campaigns << @campaign
 
+
   end
 
   test "should get index" do

@@ -62,11 +62,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  def import
-    Contact.import(params[:file], params[:campaign_id])
-    redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
