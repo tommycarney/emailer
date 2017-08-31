@@ -2,7 +2,11 @@ require 'test_helper'
 
 class CampaignsControllerTest < ActionDispatch::IntegrationTest
   setup do
+
+    @user = users(:one)
     @campaign = campaigns(:one)
+    @user.campaigns << @campaign
+
   end
 
   test "should get index" do
@@ -17,7 +21,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create campaign" do
     assert_difference('Campaign.count') do
-      post campaigns_url, params: { campaign: { name: @campaign.name, user_id: @campaign.user_id } }
+      post campaigns_url, params: { campaign: { name: 'a unique name', user_id: @user.id } }
     end
 
     assert_redirected_to campaign_url(Campaign.last)

@@ -147,6 +147,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    pg (0.21.0)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -262,6 +263,7 @@ DEPENDENCIES
   js-xlsx-rails
   listen (~> 3.0.5)
   omniauth-google-oauth2
+  pg
   puma (~> 3.0)
   rails (~> 5.0.2)
   rails_handsontable
