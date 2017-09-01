@@ -1,8 +1,9 @@
 class ContactsImporter
   attr_reader :campaign, :errors
 
-  def initialize(campaign)
-    @campaign = campaign
+  def initialize(args)
+    @campaign = args[:campaign]
+    @file     = args[:file]
     @errors = []
   end
 
@@ -11,9 +12,13 @@ class ContactsImporter
     contacts_valid?(campaign)
   end
 
+  def file_path
+    @file.path
+  end
+
 
   def import
-    CSV.parse(csvstring, headers: true).each do |row|
+    CSV.foreach(file_path, headers: true) do |row|
       contact = campaign.contacts.create(row.select {|attribute| valid_email?(attribute[1]) }.to_h)
       row.reject {|attribute| valid_email?(attribute[1]) }.each do |attribute|
         contact.add_attribute(attribute)
@@ -21,20 +26,15 @@ class ContactsImporter
     end
   end
 
-  private
-
-  def csvstring
-    @campaign.csvstring
-  end
 
   def valid_email?(email)
     email =~ Devise.email_regexp
   end
 
   def contacts_valid?(campaign)
-    return unless errors.empty? && csv_contains_email_header?
+    return false unless errors.empty? && csv_contains_email_header?
     all_contacts = []
-    CSV.parse(csvstring, headers: true).each do |row|
+    CSV.foreach(file_path, headers: true) do |row|
       contact = campaign.contacts.new(row.select {|attribute| valid_email?(attribute[1]) }.to_h)
        all_contacts << contact
       unless contact.valid?
@@ -45,24 +45,26 @@ class ContactsImporter
   end
 
   def csv_contains_email_header?
-    CSV.parse(csvstring, headers: true).each do |row|
+    CSV.foreach(file_path, headers: true) do |row|
       unless row.any? {|attribute| valid_email?(attribute[1]) }
         errors << "CSV file must contain an email column"
         return false
       end
     end
+    return true
   end
 
   def csv_exists?
-    return true unless csvstring.nil?
-    errors << "CSV string does not exist: #{truncate(csvstring, 50)}"
+    return true if File.open(file_path)
+    errors << "CSV file does not exist: #{file_path}"
   end
 
   def csv_valid?
     begin
-      CSV.parse(csvstring, headers:true)
+      CSV.open(file_path, headers: true)
+      return true
     rescue ArgumentError
-      errors << "#{truncate(csvstring, 50)} is not a CSV that we can read."
+      errors << "#{file_path} is not a CSV that we can read."
     end
   end
 end

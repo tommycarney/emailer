@@ -10,7 +10,6 @@
   <%= form_tag import_campaign_path(@campaign.id), multipart: true do %>
     <%= file_field_tag :file %>
     <%= hidden_field_tag 'campaign_id', @campaign.id %>
-    <%= hidden_field_tag 'csvstring', @campaign.id %>
     <%= submit_tag "Import Contacts" %>
   <% end %>
 

@@ -14,6 +14,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//= require xlsx
-//= require jquery-ui
-//= require handsontable.full

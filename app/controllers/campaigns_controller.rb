@@ -85,9 +85,7 @@ class CampaignsController < ApplicationController
   end
 
   def import
-    @campaign.update(csvstring: params[:csvstring])
-    @contacts_importer = ContactsImporter.new(@campaign)
-
+    @contacts_importer = ContactsImporter.new(campaign: @campaign, file: params[:file])
     if @contacts_importer.valid? #&& @contacts_importer.data_valid?
       @contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
