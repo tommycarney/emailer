@@ -1,0 +1,8 @@
+<h3>List of variables you can use in your email</h3>
+ <ol>
+<% campaign.contacts.first.contact_attributes.all.each do |attribute| %>
+
+  <li>{{<%= attribute.attribute_name %>}}</li>
+
+<% end %>
+ </ol>

@@ -6,16 +6,9 @@
   </ul>
 <% end %>
 
-<%= render 'form', campaign: @campaign %>
-<h3>List of variables you can use in your email</h3>
- <ol>
-<% @campaign.contacts.first.contact_attributes.all.each do |attribute| %>
-
-  <li>{{<%= attribute.attribute_name %>}}</li>
-
-<% end %>
- </ol>
+<%= render 'form',               campaign: @campaign %>
+<%= render 'campaign_variables', campaign: @campaign %>
 
 <%= link_to 'Show', @campaign %> |
 <%= link_to 'Back', campaigns_path %>
-<%= link_to 'Preview', preview_campaign_path(@campaign) %>
+<%= link_to 'Preview', preview_campaign_campaign_path(@campaign) %>

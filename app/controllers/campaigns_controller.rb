@@ -1,4 +1,5 @@
 class CampaignsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_campaign, only: [:show, :edit, :update, :destroy, :send_templated_email, :import]
   helper_method :render_email
 
@@ -6,12 +7,16 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   # GET /campaigns.json
   def index
-    @campaigns = Campaign.all
+    @campaigns = current_user.campaigns
   end
 
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    if @campaign.user_id != current_user.id
+      redirect_to campaigns_url
+      flash[:notice] = 'A typo in the URL! Check out your campaigns below'
+    end
   end
 
   # GET /campaigns/new
@@ -68,7 +73,6 @@ class CampaignsController < ApplicationController
   end
 
   def send_templated_email
-    # @campaign.send_templated_email...
       token = Token.find_by_email(@campaign.user.email)
       token.update_token!
       contacts = @campaign.contacts
@@ -86,8 +90,7 @@ class CampaignsController < ApplicationController
 
   def import
     @contacts_importer = ContactsImporter.new(campaign: @campaign, file: params[:file])
-    if @contacts_importer.valid? #&& @contacts_importer.data_valid?
-      @contacts_importer.import
+    if @contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
     else
       @contacts_importer.errors.each { |error| @campaign.errors.add(:csv, error)}
@@ -103,7 +106,7 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:name, :email, :csvstring)
+      params.require(:campaign).permit(:name, :email)
     end
 
     def render_email(contact, template)

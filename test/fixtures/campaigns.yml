@@ -4,10 +4,8 @@ one:
   user: one
   name: MyString
   email: hi there
-  csvstring: email,name\ntommycarney@gmail.com,Thomas\ncaroline@carolinehardy.fr,Caroline
 
 two:
   user: two
-  name: MyString
+  name: MyString2
   email: hi ho
-  csvstring: email,name\ntommycarney@gmail.com,Thomas\ncaroline@carolinehardy.fr,Caroline

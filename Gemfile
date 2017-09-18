@@ -39,6 +39,8 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client','~> 0.7.1', require: 'google/api_client'
 gem 'gmail-api-ruby', '0.0.10'
 gem 'sidekiq'
+gem "mocha"
+
 
 gem 'awesome_print'
 

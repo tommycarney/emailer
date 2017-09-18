@@ -5,14 +5,9 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
     @user = users(:one)
     @campaign = campaigns(:one)
+    @token = tokens(:one)
     @user.campaigns << @campaign
-
-
-  end
-
-  test "should get index" do
-    get campaigns_url
-    assert_response :success
+    @user.token = @token
   end
 
   test "should get new" do
@@ -20,12 +15,9 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create campaign" do
-    assert_difference('Campaign.count') do
-      post campaigns_url, params: { campaign: { name: 'a unique name', user_id: @user.id } }
-    end
-
-    assert_redirected_to campaign_url(Campaign.last)
+  test "should get edit" do
+    get edit_campaign_url(:id => @campaign.id)
+    assert_response :success
   end
 
   test "should show campaign" do
@@ -33,21 +25,15 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_campaign_url(@campaign)
+  test "should get preview" do
+    get preview_campaign_campaign_url(:id => @campaign.id)
     assert_response :success
   end
 
-  test "should update campaign" do
-    patch campaign_url(@campaign), params: { campaign: { name: @campaign.name, user_id: @campaign.user_id } }
-    assert_redirected_to campaign_url(@campaign)
+  test "should get send" do
+    get send_campaign_campaign_url(:id => @campaign.id)
+    assert_redirected_to root_url
   end
 
-  test "should destroy campaign" do
-    assert_difference('Campaign.count', -1) do
-      delete campaign_url(@campaign)
-    end
 
-    assert_redirected_to campaigns_url
-  end
 end

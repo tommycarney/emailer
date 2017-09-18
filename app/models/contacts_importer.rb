@@ -18,6 +18,7 @@ class ContactsImporter
 
 
   def import
+    return false unless valid?
     CSV.foreach(file_path, headers: true) do |row|
       contact = campaign.contacts.create(row.select {|attribute| valid_email?(attribute[1]) }.to_h)
       row.reject {|attribute| valid_email?(attribute[1]) }.each do |attribute|
