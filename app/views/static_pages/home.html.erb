@@ -1,9 +1,10 @@
-<h1>The Emailer App</h1>
 <% if user_signed_in? %>
+<h1>Welcome! Let's make an impact today</h1>
+<h2>Let's create a campaign:</h2>
+  <%= link_to('Create a Campaign', new_campaign_path) %>
   <%= render('campaigns') %>
   <%= link_to('Log Out', destroy_user_session_path, :method => :delete)  %>
-  <%= link_to('Create a Campaign', new_campaign_path) %>
 <% else %>
-  <%= link_to('Log In', new_user_session_path) %>
-  <%= link_to('Sign Up', new_user_registration_path) %>
+<h1>Reach out to 100 people via your Gmail account</h1>
+  <%= link_to('Log in via your Google Account', user_google_oauth2_omniauth_authorize_url) %>
 <% end %>

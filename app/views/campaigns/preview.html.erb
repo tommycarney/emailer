@@ -1,6 +1,10 @@
-<br />
-<% @campaign.contacts.each do |contact| %>
-  <p><%= render_email(contact, @campaign.email) %></p>
-<% end %>
+<p>Do these emails look good? If so, then: <%= link_to "Send this Campaign", send_campaign_campaign_path(@campaign) %></p>
 
-<%= link_to "Send this Campaign", send_campaign_campaign_path(@campaign) %>
+<p> Otherwise, <%= link_to "edit your campaign", edit_campaign_path(@campaign) %></p>
+
+<% @campaign.contacts.each do |contact| %>
+  <p><strong>To:</strong> <%= contact.name %></p>
+  <p><strong>Email:</strong> <%= contact.email %></p>
+  <p><strong>Subject line:</strong> <%= @campaign.name %></p>
+  <p><strong>Email Body</strong>: <%= render_email(contact, @campaign.email) %></p>
+<% end %>
