@@ -39,7 +39,8 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client','~> 0.7.1', require: 'google/api_client'
 gem 'gmail-api-ruby', '0.0.10'
 gem 'sidekiq'
-gem "mocha"
+gem 'cap'
+
 
 
 gem 'awesome_print'
@@ -51,9 +52,14 @@ group :production do
   gem 'pg'
 end
 
+group :test do
+  gem "capybara"
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
 end
 
 group :development do
