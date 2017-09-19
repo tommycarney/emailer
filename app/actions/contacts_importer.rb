@@ -4,7 +4,7 @@ class ContactsImporter
   def initialize(args)
     @campaign = args[:campaign]
     @file     = args[:file]
-    @errors = []
+    @errors   = []
   end
 
   def valid?
@@ -25,8 +25,8 @@ class ContactsImporter
         contact.add_attribute(attribute)
       end
     end
+    return true
   end
-
 
   def valid_email?(email)
     email =~ Devise.email_regexp

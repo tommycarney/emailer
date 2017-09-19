@@ -1,0 +1,3 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+<record><id>1</id><first_name>Sissie</first_name><last_name>Kubacek</last_name><email>skubacek0@ed.gov</email><gender>Female</gender><ip_address>102.99.248.164</ip_address></record><record><id>2</id><first_name>Kirbee</first_name><last_name>Yashaev</last_name><email>kyashaev1@ocn.ne.jp</email><gender>Female</gender><ip_address>220.141.246.136</ip_address></record><record><id>3</id><first_name>Elisha</first_name><last_name>Diego</last_name><email>ediego2@yandex.ru</email><gender>Male</gender><ip_address>167.177.247.178</ip_address></record></dataset>
