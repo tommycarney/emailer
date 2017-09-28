@@ -89,7 +89,7 @@ class CampaignsController < ApplicationController
   end
 
   def import
-    @contacts_importer = ContactsImporter.new(campaign: @campaign, file: params[:file])
+    @contacts_importer = ImportContacts.new(campaign: @campaign, file: params[:file])
     if @contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
     else

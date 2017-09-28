@@ -1,4 +1,4 @@
-class ContactsImporter
+class ImportContacts
   attr_reader :campaign, :errors
 
   def initialize(args)
@@ -8,8 +8,7 @@ class ContactsImporter
   end
 
   def valid?
-    return false unless csv_exists? && csv_valid?
-    contacts_valid?(campaign)
+    csv_exists? && csv_valid? && csv_contains_email_header?
   end
 
   def import
@@ -25,7 +24,7 @@ class ContactsImporter
   def file_path
     @file.path
   end
-  
+
   def create_contact_from(row)
     contact = campaign.contacts.create(row.select {|attribute| valid_email?(attribute[1]) }.to_h)
     row.reject {|attribute| valid_email?(attribute[1]) }.each do |attribute|
@@ -35,19 +34,6 @@ class ContactsImporter
 
   def valid_email?(email)
     email =~ Devise.email_regexp
-  end
-
-  def contacts_valid?(campaign)
-    return false unless errors.empty? && csv_contains_email_header?
-    all_contacts = []
-    CSV.foreach(file_path, headers: true) do |row|
-      contact = campaign.contacts.new(row.select {|attribute| valid_email?(attribute[1]) }.to_h)
-       all_contacts << contact
-      unless contact.valid?
-         errors << "user is invalid: #{contact.errors}"
-      end
-    end
-    all_contacts.all? {|contact| contact.valid? }
   end
 
   def csv_contains_email_header?
