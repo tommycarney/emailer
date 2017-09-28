@@ -1,6 +1,3 @@
-require 'net/http'
-require 'json'
-
 class Token < ActiveRecord::Base
   before_destroy :revoke_token
   belongs_to :user, primary_key: "email", foreign_key: "email"
@@ -29,11 +26,14 @@ class Token < ActiveRecord::Base
   end
 
     def refresh!
-      response = fetch_token_from_google
-      data = JSON.parse(response.body)
+      data = parse_data(fetch_token_from_google)
       update_attributes(
         access_token: data['access_token'],
         expires_at: Time.now + (data['expires_in'].to_i).seconds)
+    end
+
+    def parse_data(response)
+      JSON.parse(response.body)
     end
 
     def expired?
