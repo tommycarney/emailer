@@ -81,7 +81,7 @@ class CampaignsController < ApplicationController
                         sender:   @campaign.user.email,
                         subject:  @campaign.name,
                         email:    contact.email,
-                        body:     render_email(contact, @campaign.email),
+                        body:     Campaign.render(contact, @campaign.email),
                         token:    token.refresh_token
                         )
       end
@@ -108,9 +108,4 @@ class CampaignsController < ApplicationController
     def campaign_params
       params.require(:campaign).permit(:name, :email)
     end
-
-    def render_email(contact, template)
-      template.gsub(/{{[a-zA-Z0-9]+}}/) {|var| contact.contact_attributes.find_by(attribute_name: var.scan(/[^({{|}})]/).join).attribute_value }
-    end
-
 end

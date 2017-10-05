@@ -2,11 +2,11 @@ require 'rails_helper'
 include ActionDispatch::TestProcess
 
 RSpec.describe ImportContacts do
-  describe "validating a CSV file" do
-    let(:user) { User.create(email:"emailer@example.com")}
-    let(:campaign) { Campaign.create(name:"A test subject line", email: "Hi {{name}}, here's a line", user_id: user.id )}
-    let(:importer) { ImportContacts.new(campaign: campaign, file: file)}
+  let(:user) { User.create(email:"emailer@example.com")}
+  let(:campaign) { Campaign.create(name:"A test subject line", email: "Hi {{name}}, here's a line", user_id: user.id )}
+  let(:importer) { ImportContacts.new(campaign: campaign, file: file)}
 
+  describe "validating a CSV file" do
     describe "with an incorrect format of XML" do
       let(:file) { fixture_file_upload('files/xml-file.xml', 'text/xml') }
       specify { expect(importer).to_not be_valid }
@@ -19,10 +19,6 @@ RSpec.describe ImportContacts do
   end
 
   describe "uploading a CSV file" do
-    let(:user) { User.create(email:"emailer@example.com")}
-    let(:campaign) { Campaign.create(name:"A test subject line", email: "Hi {{name}}, here's a line", user_id: user.id )}
-    let(:importer) { ImportContacts.new(campaign: campaign, file: file)}
-
     describe "with a correctly formatted CSV file" do
       let(:file) { fixture_file_upload('files/3-contacts.csv', 'text/csv') }
       it "creates 3 new contacts on the campaign" do

@@ -6,4 +6,6 @@ class Contact < ApplicationRecord
   def add_attribute(attribute)
     self.contact_attributes.create(attribute_name:attribute[0], attribute_value: attribute[1])
   end
+
+
 end

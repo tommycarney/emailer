@@ -19,6 +19,7 @@ class ImportContacts
     return true
   end
 
+
   private
 
   def file_path
