@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :campaigns do
     post :import, on: :member
     get  :preview, on: :member, as: :preview_campaign
-    get  :send, on: :member, to: 'campaigns#send_templated_email', as: :send_campaign
+    post  :send, on: :member, to: 'campaigns#send_templated_email', as: :send_campaign
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
