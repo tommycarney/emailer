@@ -63,6 +63,20 @@ class ContactsController < ApplicationController
     end
   end
 
+  def upload
+  end
+
+  def import
+    @campaign = Campaign.find(params[:campaign_id])
+    @contacts_importer = ImportContacts.new(campaign: @campaign, file: params[:file])
+    if @contacts_importer.import
+      redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
+    else
+      @contacts_importer.errors.each { |error| @campaign.errors.add(:csv, error)}
+      render :edit
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
