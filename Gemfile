@@ -40,6 +40,8 @@ gem 'google-api-client','~> 0.7.1', require: 'google/api_client'
 gem 'gmail-api-ruby', '0.0.10'
 gem 'sidekiq'
 gem 'cap'
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+
 
 
 
