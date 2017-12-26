@@ -75,17 +75,16 @@ class CampaignsController < ApplicationController
   def send_templated_email
       token = Token.find_by_email(@campaign.user.email)
       token.update_token!
-      contacts = @campaign.contacts
-      contacts.each do |contact|
+      @campaign.contacts.each do |contact|
         EmailJob.perform_later(
                         sender:   @campaign.user.email,
                         subject:  @campaign.name,
                         email:    contact.email,
-                        body:     Campaign.render(contact, @campaign.email),
+                        body:     @campaign.render(contact),
                         token:    token.refresh_token
                         )
       end
-      redirect_to(root_url, notice: "We just sent #{contacts.count} emails via your Gmail account.")
+      redirect_to(root_url, notice: "We just sent #{@campaign.contacts.count} emails via your Gmail account.")
   end
 
   def import
