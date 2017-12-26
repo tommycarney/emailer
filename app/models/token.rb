@@ -5,7 +5,7 @@ class Token < ActiveRecord::Base
   def self.from_omni_auth(auth)
     where(email: auth.info.email).first_or_create do |token|
       token.access_token = auth.credentials.token,
-      token.refresh_token = auth.credentials.refresh_token,
+      token.refresh_token = auth.credentials.refresh_token || token.refresh_token,
       token.expires_at = Time.at(auth.credentials.expires_at).to_datetime,
       token.email = auth.info.email
     end
