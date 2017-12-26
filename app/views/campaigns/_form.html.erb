@@ -11,18 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label "Subject line of your email" %>
-    <%= f.text_field :name %>
+  <div class="field form-group">
+    <%= f.label "Subject" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label "Write the body of your email." %>
-    <%= f.text_area :email %>
+  <div class="field form-group">
+    <%= f.label "The body of your email" %>
+    <%= f.text_area :email, class: "form-control", rows: "10" %>
   </div>
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
