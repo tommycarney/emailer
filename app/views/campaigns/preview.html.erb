@@ -1,6 +1,4 @@
-<p>Do these emails look good? If so, then: <%= link_to "Send this Campaign", send_campaign_campaign_path(@campaign) %></p>
 
-<p> Otherwise, <%= link_to "edit your campaign", edit_campaign_path(@campaign) %></p>
 
 <% @campaign.contacts.each do |contact| %>
   <p><strong>To:</strong> <%= contact.name %></p>
@@ -8,3 +6,12 @@
   <p><strong>Subject line:</strong> <%= @campaign.name %></p>
   <p><strong>Email Body</strong>: <%= @campaign.render(contact) %></p>
 <% end %>
+
+
+<p>Do these emails look good? If so, then:</p>
+
+<%= form_tag({action: :send_templated_email}) do %>
+  <%= submit_tag "Send" %>
+<% end %>
+
+<p> Otherwise, <%= link_to "edit your campaign", edit_campaign_path(@campaign) %></p>

@@ -5,14 +5,5 @@
   <%= @campaign.name %>
 </h1>
 
-<h2> Import Contacts<h2>
-<div></div>
-  <%= form_tag import_campaign_path(@campaign.id), multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= hidden_field_tag 'campaign_id', @campaign.id %>
-    <%= submit_tag "Import Contacts" %>
-  <% end %>
-
-
 <%= link_to 'Edit', edit_campaign_path(@campaign) %> |
 <%= link_to 'Back', campaigns_path %>
