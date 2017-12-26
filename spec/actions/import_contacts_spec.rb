@@ -2,8 +2,8 @@ require 'rails_helper'
 include ActionDispatch::TestProcess
 
 RSpec.describe ImportContacts do
-  let(:user) { User.create(email:"emailer@example.com")}
-  let(:campaign) { Campaign.create(name:"A test subject line", email: "Hi {{name}}, here's a line", user_id: user.id )}
+  let(:user) { create(:user)}
+  let(:campaign) { create(:campaign, user_id: user.id ) }
   let(:importer) { ImportContacts.new(campaign: campaign, file: file)}
 
   describe "validating a CSV file" do
