@@ -1,13 +1,17 @@
-<h1>Edit Your Campaign</h1>
-
+<div class="row">
+  <div class="col-md-4">
+    <%= render 'campaign_variables', campaign: @campaign %>
+  </div>
+  <div class="col-md-8">
+    <%= render 'form', campaign: @campaign %>
+  </div>
+</div>
 <% @campaign.errors.each do |error| %>
   <ul>
     <li><%= error%></li>
   </ul>
 <% end %>
 
-<%= render 'form',               campaign: @campaign %>
+
 
 <%= link_to 'Preview This Campaign', preview_campaign_campaign_path(@campaign) %>
-
-<%= render 'campaign_variables', campaign: @campaign %>
