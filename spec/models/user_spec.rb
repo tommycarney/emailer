@@ -9,4 +9,10 @@ RSpec.describe User do
     expect(User.find_by_email("test@example.com")).to eq(user)
   end
 
+  it "logs in an existing user using an appropriate auth hash" do
+    user = User.from_omni_auth(auth_hash)
+    auth_hash[:credentials][:refresh_token] = nil
+    expect(user).to eq(User.from_omni_auth(auth_hash))
+  end
+
 end
