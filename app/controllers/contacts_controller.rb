@@ -15,7 +15,8 @@ class ContactsController < ApplicationController
 
   # GET /contacts/new
   def new
-    @contact = Contact.new
+    @campaign = Campaign.find(params[:campaign_id])
+    @contact = Campaign.find(params[:campaign_id]).contacts.new
   end
 
   # GET /contacts/1/edit
