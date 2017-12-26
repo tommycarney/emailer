@@ -26,6 +26,7 @@ Thomas
 5. You send the emails, which are scheduled as background jobs to be processed.
 
 
-## Things I want to add
+## How to Start
 
-1. I want to use handsontable and sheetsjs to show an editable version of the imported CSV file, so users can quickly spot import errors and correct inconsistent data themselves on the spot.
+### The Redis server for Sidekiq
+Now, if I fire up my redis server via `brew services start redis` and start sidekiq via `bundle exec sidekiq`, I can see my jobs at http://localhost:3000/sidekiq
