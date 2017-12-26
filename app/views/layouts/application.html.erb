@@ -9,6 +9,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'layouts/navbar' %>
+    <%= render 'shared/progress_bar' %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
