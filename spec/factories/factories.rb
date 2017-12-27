@@ -9,6 +9,16 @@ FactoryBot.define do
 
   factory :campaign do
     name "a fake name for the campaign"
-    email "Hi, what's up"
+    email "Hi {{name}}, what's up"
+  end
+
+  factory :contact do
+    email { Faker::Internet.email }
+    name { Faker::Name.name }
+  end
+
+  factory :contact_attribute do
+    attribute_name "name"
+    attribute_value { Faker::Name.name }
   end
 end
