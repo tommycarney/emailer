@@ -40,12 +40,6 @@ ActiveRecord::Schema.define(version: 20170815173434) do
     t.index ["campaign_id"], name: "index_contacts_on_campaign_id"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tokens", force: :cascade do |t|
     t.string   "access_token"
     t.string   "refresh_token"
