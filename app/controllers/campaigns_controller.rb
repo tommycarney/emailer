@@ -84,6 +84,7 @@ class CampaignsController < ApplicationController
                         token:    token.refresh_token
                         )
       end
+      @campaign.sent!
       redirect_to(root_url, notice: "We just sent #{@campaign.contacts.count} emails via your Gmail account.")
   end
   private

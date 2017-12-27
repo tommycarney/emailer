@@ -1,5 +1,5 @@
 <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
   <%= link_to "New", new_campaign_path, class: "btn btn-secondary" %>
-  <button type="button" class="btn btn-secondary">Drafts</button>
-  <button type="button" class="btn btn-secondary">Completed</button>
+  <%= link_to "Drafts", campaigns_path(anchor: "DraftCampaigns"), class: "btn btn-secondary" %>
+  <%= link_to "Sent", campaigns_path(anchor: "SentCampaigns"), class: "btn btn-secondary" %>
 </div>
