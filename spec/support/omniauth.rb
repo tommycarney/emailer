@@ -9,6 +9,7 @@ OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
                    },
 
     :info        =>  {
-                     :email         => 'test@example.com'
+                     :email         => 'test@example.com',
+                     :name          => 'John Doe'
     }
   })
