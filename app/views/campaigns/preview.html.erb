@@ -1,7 +1,6 @@
 
 
 <% @campaign.contacts.each do |contact| %>
-  <p><strong>To:</strong> <%= contact.name %></p>
   <p><strong>Email:</strong> <%= contact.email %></p>
   <p><strong>Subject line:</strong> <%= @campaign.name %></p>
   <p><strong>Email Body</strong>: <%= @campaign.render(contact) %></p>
