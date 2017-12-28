@@ -14,5 +14,6 @@
     <div class="container">
       <%= yield %>
     </div>
+    <%= js add_gritter(flash[:notice], title: "Notifications", sticky: false) %>  
   </body>
 </html>
