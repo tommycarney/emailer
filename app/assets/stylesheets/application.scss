@@ -12,9 +12,13 @@
  *
 
  */
+ @import "bootstrap";
+ @import "gritter.css.scss";
  @import "contacts";
  @import "scaffolds";
  @import "static_pages";
  @import "campaigns";
- @import "bootstrap";
- @import "gritter.css.scss";
+
+ .field_with_errors {
+   display: block;
+ }
