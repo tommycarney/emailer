@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe Campaign, type: :model do
  context "validations" do
    before do
-     @campaign = build(:campaign)
+     @user = create(:user)
+     @campaign = create(:campaign, user_id: @user.id)
    end
    it "is valid with a name and an email" do
      expect(@campaign).to be_valid
@@ -22,8 +23,9 @@ RSpec.describe Campaign, type: :model do
   end
 
   it "given a contact, renders an email using contact_attributes of the contact" do
-    campaign = build(:campaign)
-    contact = create(:contact)
+    user = create(:user)
+    campaign = create(:campaign, user_id: user.id)
+    contact = create(:contact, campaign_id: campaign.id)
     contact_attribute = create(:contact_attribute, contact_id: contact.id)
     expect(campaign.render(contact)).to eq("Hi #{contact_attribute.attribute_value}, what's up")
   end

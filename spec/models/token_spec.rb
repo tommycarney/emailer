@@ -5,6 +5,7 @@ RSpec.describe Token do
   let :auth_hash { OmniAuth.config.mock_auth[:google_oauth2] }
 
   it "from an auth parameter" do
+    user = create(:user, email: "test@example.com")
     token = Token.from_omni_auth(auth_hash)
     allow(token).to receive(:revoke_token).and_return(true)
     expect(Token.find_by_email("test@example.com")).to eq(token)
