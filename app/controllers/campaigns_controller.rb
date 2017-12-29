@@ -1,6 +1,7 @@
 class CampaignsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_campaign, only: [:show, :edit, :update, :destroy, :send_templated_email, :import]
+  before_action :show_progress_bar
   helper_method :render_email
 
 
@@ -96,5 +97,9 @@ class CampaignsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
       params.require(:campaign).permit(:name, :email)
+    end
+
+    def show_progress_bar
+      @show_progress_bar = true
     end
 end

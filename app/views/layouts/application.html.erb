@@ -10,10 +10,10 @@
 
   <body>
     <%= render 'layouts/navbar' %>
-    <%= render 'shared/progress_bar' %>
+    <%= render 'shared/progress_bar' if @show_progress_bar %>
     <div class="container">
       <%= yield %>
     </div>
-    <%= js add_gritter(flash[:notice], title: "Notifications", sticky: false) %>  
+    <%= js add_gritter(flash[:notice], title: "Notifications", sticky: false) %>
   </body>
 </html>

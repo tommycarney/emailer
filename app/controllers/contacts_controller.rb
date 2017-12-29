@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :show_progress_bar, only: [:upload]
 
 
   # GET /contacts
@@ -86,5 +87,9 @@ class ContactsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.permit(:campaign_id, :email, :name)
+    end
+
+    def show_progress_bar
+      @show_progress_bar = true
     end
 end
