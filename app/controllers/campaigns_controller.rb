@@ -1,5 +1,5 @@
 class CampaignsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_campaign, only: [:show, :edit, :update, :destroy, :send_templated_email, :import]
   before_action :show_progress_bar
   helper_method :render_email
