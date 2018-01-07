@@ -3,7 +3,7 @@
     <%= js add_gritter(message, title: "Errors", sticky: false) %>
   <% end %>
 <% end %>
-<%= form_tag({action: :import}, multipart: true) do %>
+<%= form_tag({action: :import}, multipart: true, class: "dropzone") do %>
   <%= file_field_tag :file %>
   <%= submit_tag "Submit" %>
 <% end %>
