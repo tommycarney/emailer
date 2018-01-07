@@ -34,9 +34,13 @@ RSpec.describe ImportContacts do
         expect(importer.import).to be_falsey
       end
     end
-   describe "without any file" do 
-     let(:file) { nil }
-     specify { expect(importer).to_not be_valid }
-   end
+    describe "without any file" do
+      let(:file) { nil }
+      specify { expect(importer).to_not be_valid }
+    end
+    describe "with an invalid file" do
+      let(:file) { fixture_file_upload('files/xml-file.xml','image/jpeg' ) }
+      specify { expect(importer).to_not be_valid }
+    end
   end
 end
