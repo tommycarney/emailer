@@ -16,4 +16,5 @@
 //= require bootstrap-sprockets
 //= require gritter
 //= require turbolinks
+//= require dropzone
 //= require_tree .
