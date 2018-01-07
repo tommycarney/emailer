@@ -1,6 +1,7 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   before_action :show_progress_bar, only: [:upload]
+  before_action :find_campaign, only: [:upload, :import]
 
 
   # GET /contacts
@@ -68,13 +69,13 @@ class ContactsController < ApplicationController
   end
 
   def import
-    @campaign = Campaign.find(params[:campaign_id])
     @contacts_importer = ImportContacts.new(campaign: @campaign, file: params[:file])
     if @contacts_importer.import
       redirect_to edit_campaign_path(params[:campaign_id]), notice: "Contacts imported."
     else
       @contacts_importer.errors.each { |error| @campaign.errors.add(:csv, error)}
-      render :edit
+      @contact = Campaign.find(params[:campaign_id]).contacts.new
+      render :upload
     end
   end
 
@@ -82,6 +83,10 @@ class ContactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = Contact.find(params[:id])
+    end
+
+    def find_campaign
+      @campaign = Campaign.find(params[:campaign_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

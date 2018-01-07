@@ -1,3 +1,8 @@
+<% if @campaign.errors.any? %>
+  <% @campaign.errors.full_messages.each do |message| %>
+    <%= js add_gritter(message, title: "Errors", sticky: false) %>
+  <% end %>
+<% end %>
 <%= form_tag({action: :import}, multipart: true) do %>
   <%= file_field_tag :file %>
   <%= submit_tag "Submit" %>

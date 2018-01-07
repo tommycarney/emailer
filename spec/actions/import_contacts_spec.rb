@@ -34,6 +34,9 @@ RSpec.describe ImportContacts do
         expect(importer.import).to be_falsey
       end
     end
+   describe "without any file" do 
+     let(:file) { nil }
+     specify { expect(importer).to_not be_valid }
+   end
   end
-
 end

@@ -48,8 +48,8 @@ class ImportContacts
   end
 
   def csv_exists?
-    return true if File.open(file_path)
-    errors << "CSV file does not exist: #{file_path}"
+    errors << "Please upload a file" if @file == nil
+    return true if errors.empty?
   end
 
   def csv_valid?
