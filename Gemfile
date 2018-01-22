@@ -42,10 +42,7 @@ gem 'sidekiq'
 gem 'cap'
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'gritter', '~> 1.2'
-
-
-
-
+gem 'redcarpet'
 gem 'awesome_print'
 
 # Use Capistrano for deployment
