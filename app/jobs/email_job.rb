@@ -16,8 +16,13 @@ class EmailJob < ApplicationJob
         to: "#{email}",
         subject: subject,
         text: body,
-        html: body
+        html: html_part(body)
       )
     m.deliver
   end
+
+  def self.html_part(body)
+    '<div dir="ltr">'+ Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(body) + '</div>'
+  end
+
 end

@@ -54,6 +54,8 @@ end
 
 group :test do
   gem "capybara"
+  gem 'rspec-sidekiq'
+
 end
 
 group :development, :test do
